@@ -16,6 +16,7 @@
 <% @peeps.each do |peep| %>
   <div class="peep" style='border: 1px solid black'>
     <h4> <%= peep.text %> </h4>
+    posted: <%= peep.created_at %>
   </div>
   <br><br>
 <% end %>

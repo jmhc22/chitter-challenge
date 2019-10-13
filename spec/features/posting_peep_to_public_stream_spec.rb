@@ -18,4 +18,12 @@ feature 'Posting peep' do
       expect(first('.peep')).to have_content 'another'
     end
   end
+
+  scenario 'displays the date and time posted for each peep' do
+    visit '/'
+    fill_in('new_peep', with: 'this is a test peep')
+    click_button 'Post'
+
+    expect(page).to have_content Time.now.strftime('%H:%M %D')
+  end
 end
