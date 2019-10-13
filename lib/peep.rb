@@ -6,7 +6,7 @@ class Peep
     result = DatabaseConnection.query("SELECT * FROM peeps;")
     result.map { |peep|
       Peep.new(id: peep['id'], text: peep['text'])
-    }
+    }.reverse
   end
 
   def self.create(text:)
