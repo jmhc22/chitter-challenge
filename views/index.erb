@@ -1,0 +1,15 @@
+<style>
+  * {
+  font-family: "Courier new", Times, serif;
+  }
+</style>
+
+<form method="post" action="/peep">
+  <input type="text" name="new_peep" placeholder="What's on your mind?" />
+  <input type="submit" value="Post" />
+</form>
+
+<% @peeps.each do |peep| %>
+  <%= peep.text %>
+  <br><br>
+<% end %>

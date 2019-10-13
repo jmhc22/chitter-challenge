@@ -8,17 +8,18 @@ require_relative './database_helpers'
 
 ENV['ENVIRONMENT'] = 'test'
 
+require File.join(File.dirname(__FILE__), '..', 'app.rb')
+
+Capybara.app = ChitterApp
+
 RSpec.configure do |config|
   config.before(:each) do
+    DatabaseConnection.setup('chitter_test')
     setup_test_database
   end
 end
 
 # require 'features/web_helper'
-
-require File.join(File.dirname(__FILE__), '..', 'app.rb')
-
-Capybara.app = ChitterApp
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
   SimpleCov::Formatter::Console,
