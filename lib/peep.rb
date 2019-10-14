@@ -9,16 +9,16 @@ class Peep
     }.reverse
   end
 
-  def self.create(text:)
+  def self.create(text:, user_id:)
     result = DatabaseConnection.query("INSERT INTO peeps (text, created_at)
-      VALUES('#{text.split("'").join("")}', '#{Time.now.strftime('%H:%M %D')}') RETURNING id, text, created_at;").first
+      VALUES('#{text.gsub("'") {"`apos*"}}', '#{Time.now.strftime('%H:%M %D')}') RETURNING id, text, created_at;").first
     Peep.new(id: result['id'], text: result['text'], created_at: result['created_at'])
   end
 
   attr_reader :id, :text, :created_at
   def initialize(id:, text:, created_at:)
     @id = id
-    @text = text
+    @text = text.gsub("`apos*") {"'"}
     @created_at = created_at
   end
 end

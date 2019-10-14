@@ -5,15 +5,15 @@ class User
   def self.sign_in(handle:)
     result = DatabaseConnection.query("SELECT * FROM users
       WHERE handle = '#{handle}';").first
-    @current_user = User.new(name: result['name'], handle: result['handle'],
+    @current_user = User.new(id: result['id'], name: result['name'], handle: result['handle'],
       email: result['email'], password: result['password'])
   end
 
   def self.create(name:, handle:, email:, password:)
     result = DatabaseConnection.query("INSERT INTO users (name, handle, email, password)
-      VALUES('#{name}', '#{handle}', '#{email}', '#{password}') RETURNING name, handle,
+      VALUES('#{name}', '#{handle}', '#{email}', '#{password}') RETURNING id, name, handle,
       email, password;").first
-    User.new(name: result['name'], handle: result['handle'], email: result['email'],
+    User.new(id: result['id'], name: result['name'], handle: result['handle'], email: result['email'],
       password: result['password'])
   end
 
@@ -21,12 +21,12 @@ class User
     @current_user
   end
 
-  attr_reader :name, :handle, :email, :password
-  def initialize(name:, handle:, email:, password:)
+  attr_reader :id, :name, :handle, :email, :password
+  def initialize(id:, name:, handle:, email:, password:)
+    @id = id
     @name = name
     @handle = handle
     @email = email
     @password = password
   end
-
 end

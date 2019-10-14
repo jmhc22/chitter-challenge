@@ -14,7 +14,9 @@ class ChitterApp < Sinatra::Base
   end
 
   post '/peep' do
-    Peep.create(text: params[:new_peep])
+    user_id = User.current_user.id if User.current_user
+    user_id ||= nil
+    Peep.create(text: %Q{#{params[:new_peep]}}, user_id: user_id)
     redirect '/'
   end
 

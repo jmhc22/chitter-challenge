@@ -4,7 +4,7 @@ describe Peep do
 
   describe '.create' do
     it 'creating a peep will return the peep object and store data in database' do
-      peep = Peep.create(text: "This is a test peep!")
+      peep = Peep.create(text: "This is a test peep!", user_id: '1')
 
       peeps = Peep.all
 
@@ -17,8 +17,8 @@ describe Peep do
 
   describe '.all' do
     it 'returns an array of all peeps in reverse order' do
-      peep = Peep.create(text: "This is a test peep!")
-      peep = Peep.create(text: "This is also a test peep!")
+      peep = Peep.create(text: "This is a test peep!", user_id: '1')
+      peep = Peep.create(text: "This is also a test peep!", user_id: '1')
 
       peeps = Peep.all
 
