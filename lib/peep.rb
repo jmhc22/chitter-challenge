@@ -10,7 +10,8 @@ class Peep
   end
 
   def self.create(text:)
-    result = DatabaseConnection.query("INSERT INTO peeps (text, created_at) VALUES('#{text.split("'").join("")}', '#{Time.now.strftime('%H:%M %D')}') RETURNING id, text, created_at;").first
+    result = DatabaseConnection.query("INSERT INTO peeps (text, created_at)
+      VALUES('#{text.split("'").join("")}', '#{Time.now.strftime('%H:%M %D')}') RETURNING id, text, created_at;").first
     Peep.new(id: result['id'], text: result['text'], created_at: result['created_at'])
   end
 

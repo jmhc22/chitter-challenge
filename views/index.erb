@@ -5,6 +5,13 @@
   div { width: 60%; }
 </style>
 
+<form action="/sign-up">
+  <input type="submit" value="Sign Up" />
+</form>
+<% if @user %>
+  <%= @user.handle %>
+<% end %>
+
 <center>
 <h1> CHITTER </h1>
 
@@ -15,6 +22,9 @@
 
 <% @peeps.each do |peep| %>
   <div class="peep" style='border: 1px solid black'>
+    <% if @user %>
+      <h5> <%= @user.name %>, @<%= @user.handle %>: </h5>
+    <% end %>
     <h4> <%= peep.text %> </h4>
     posted: <%= peep.created_at %>
   </div>
